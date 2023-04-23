@@ -1,7 +1,7 @@
 clc
 clear all
 
-ndata=load('C:\Users\wss\Desktop\emo\ÊµÑéÊı¾İ\100\glass5\glass5.txt'); 
+ndata=load('data\100\glass5\glass5.txt'); 
 N1=size(ndata,1);
 N2=size(ndata,2);
 data=zscore(ndata(:,1:N2-1));
@@ -10,20 +10,20 @@ res=score(:, 1:2);
 res(:,3)=ndata(:,N2);
 
 rng(42)
-p1=1; %ÓòÓ°ÏìÒò×Ó  
-p2=1; %±ß½çÈ¨ÖØÒò×Ó
-p3=0; %µãÊıÁ¿È¨ÖØÒò×Ó
+p1=1; %åŸŸå½±å“å› å­  
+p2=1; %è¾¹ç•Œæƒé‡å› å­
+p3=0; %ç‚¹æ•°é‡æƒé‡å› å­
 x=res(:,1); 
 y=res(:,2);
-z=res(:,3); %·ÖÀà±êÇ©
+z=res(:,3); %åˆ†ç±»æ ‡ç­¾
 [r,c]=meshgrid(1:N1); 
-a=sqrt((x(r)-x(c)).^2+(y(r)-y(c)).^2);%Éú³É¾àÀë¾ØÕó
+a=sqrt((x(r)-x(c)).^2+(y(r)-y(c)).^2);%ç”Ÿæˆè·ç¦»çŸ©é˜µ
 res1=find(res(:,3)==1);
 min_res=find(res(:,3)==1);
 min_x=res(min_res,1);
 min_y=res(min_res,2);
 [R,C]=meshgrid(1:length(min_res)); 
-min_a=sqrt((min_x(R)-min_x(C)).^2+(min_y(R)-min_y(C)).^2);%Éú³É¾àÀë¾ØÕó
+min_a=sqrt((min_x(R)-min_x(C)).^2+(min_y(R)-min_y(C)).^2);%ç”Ÿæˆè·ç¦»çŸ©é˜µ
 [m,n]=size(a); 
 
 ccsb=mean(min_a(:))/mean(a(:))
@@ -33,10 +33,10 @@ min_a(min_a==0)=inf;
 [minv ind]=min(a,[],2);
 [minv2 ind]=min(min_a,[],2);
 ccsa=mean(minv2(:))/mean(minv(:))
-p1=ccsa %ÓòÓ°ÏìÒò×Ó  
-rc=mean(minv(:))*p1; %Ó¦¸Ã¸ù¾İÉÙÊıÀàÑù±¾µãµÄÆ½¾ù¾àÀëÀ´¸Ä½ø
-dy=2*rc;dx=rc*sqrt(3);%ÕıÁù±ßĞÎµÄ´óĞ¡
-AI=pi/3*[1:7];%Ô²ÖÜÁùµÈ·Ö
+p1=ccsa %åŸŸå½±å“å› å­  
+rc=mean(minv(:))*p1; %åº”è¯¥æ ¹æ®å°‘æ•°ç±»æ ·æœ¬ç‚¹çš„å¹³å‡è·ç¦»æ¥æ”¹è¿›
+dy=2*rc;dx=rc*sqrt(3);%æ­£å…­è¾¹å½¢çš„å¤§å°
+AI=pi/3*[1:7];%åœ†å‘¨å…­ç­‰åˆ†
 cow=(max(y)-min(y));
 rol=(max(x)-min(x));
 num=1;
@@ -54,7 +54,7 @@ for yk=[-cow:dy:cow]
             Ty=imag(T);
             ban3=[ban3,{Tx}];
             ban4=[ban4,{Ty}];
-            %text(xp,yp,num2str(num)); %±êºÅ
+            %text(xp,yp,num2str(num)); %æ ‡å·
             ban1=[];ban2=[];ban5=[];ban6=[];
             for I=1:1:m-numel(i)
                 in=inpolygon(x(I),y(I),Tx,Ty); 
@@ -67,8 +67,8 @@ for yk=[-cow:dy:cow]
                        ban6=[ban6,I];
                    end
                 end
-                TIP{num}=ban1; %´¢´æÃ¿¸öÓòÄÚµãµÄ±êÇ©
-                DATA{num}=ban2; %´¢´æÃ¿¸öÓòÄÚµãµÄÊı¾İ
+                TIP{num}=ban1; %å‚¨å­˜æ¯ä¸ªåŸŸå†…ç‚¹çš„æ ‡ç­¾
+                DATA{num}=ban2; %å‚¨å­˜æ¯ä¸ªåŸŸå†…ç‚¹çš„æ•°æ®
                 TIP1{num}=ban5;
                 TIP2{num}=ban6;
             end
@@ -103,21 +103,21 @@ for NUM=1:1:num-1
  else
      YUdis=[YUdis,NUM];
  end
- CENx(NUM)=mean(cell2mat(ban3(NUM))); %ÓòÖĞĞÄµãºá×ø±ê
- CENy(NUM)=mean(cell2mat(ban4(NUM))); %ÓòÖĞĞÄµã×İ×ø±ê
+ CENx(NUM)=mean(cell2mat(ban3(NUM))); %åŸŸä¸­å¿ƒç‚¹æ¨ªåæ ‡
+ CENy(NUM)=mean(cell2mat(ban4(NUM))); %åŸŸä¸­å¿ƒç‚¹çºµåæ ‡
  
 end
 [r2,c2]=meshgrid(1:num-1);
-a2=sqrt((CENx(r2)-CENx(c2)).^2+(CENy(r2)-CENy(c2)).^2); %ÓòÖĞĞÄµã¾àÀë¾ØÕó£¨Óò¾àÀë¾ØÕó£©
+a2=sqrt((CENx(r2)-CENx(c2)).^2+(CENy(r2)-CENy(c2)).^2); %åŸŸä¸­å¿ƒç‚¹è·ç¦»çŸ©é˜µï¼ˆåŸŸè·ç¦»çŸ©é˜µï¼‰
 
 
-% Çø±ğÉÙÊıÀàÓë¶àÊıÀà£¬²¢È·¶¨Ó¦¸Ã¹ı²ÉÑùµÄÊıÁ¿£¬
+% åŒºåˆ«å°‘æ•°ç±»ä¸å¤šæ•°ç±»ï¼Œå¹¶ç¡®å®šåº”è¯¥è¿‡é‡‡æ ·çš„æ•°é‡ï¼Œ
 Num=0;
 s1=size(p,1);
 s2=size(q,1);
 if s1-s2<0
     Num=s2-s1;
-    fprintf('0ÎªÉÙÊıÀà±êÇ©')
+    fprintf('0ä¸ºå°‘æ•°ç±»æ ‡ç­¾')
     min1=p;
     maj1=q;
     YUmin=YU2;
@@ -127,7 +127,7 @@ if s1-s2<0
     TIP0=TIP2;
 elseif s1-s2>0
     Num=s1-s2;
-    fprintf('1ÎªÉÙÊıÀà±êÇ©')
+    fprintf('1ä¸ºå°‘æ•°ç±»æ ‡ç­¾')
     min1=q;
     maj1=p;
     YUmin=YU1;
@@ -136,7 +136,7 @@ elseif s1-s2>0
     md=0;
     TIP0=TIP1;
 elseif s1-s2==0
-    error('Êı¾İÒÑ´ïÆ½ºâ')
+    error('æ•°æ®å·²è¾¾å¹³è¡¡')
 end
 
 Num=Num+500;
@@ -147,28 +147,28 @@ for NUM2=1:1:num-1
     B=a3(NUM2,:);
     [B11,B12]=sort(B,'ascend');
     ind2=B12(1:6);
-    if ismember(ind2,YU1)==1 & ismember(NUM2,YU1)==0 %ÖÜÎ§È«ÊÇ1Óòµ«×Ô¼º²»ÊÇ1ÓòÊ±£¬×ª»¯Îª1Óò
+    if ismember(ind2,YU1)==1 & ismember(NUM2,YU1)==0 %å‘¨å›´å…¨æ˜¯1åŸŸä½†è‡ªå·±ä¸æ˜¯1åŸŸæ—¶ï¼Œè½¬åŒ–ä¸º1åŸŸ
           YU2(find(YU2==NUM2))=[];
           YUdis(find(YUdis==NUM2))=[];
           YU1=[YU1,NUM2];
-          %d1=DATA{NUM2}; %¸ÃÓòÖĞµãµÄĞÅÏ¢
-          %find(d1(3,:)==-1)=[] %Ñ°ÕÒÆäÖĞ·Ç1ÓòµÄµã½øĞĞÉ¾³ı
+          %d1=DATA{NUM2}; %è¯¥åŸŸä¸­ç‚¹çš„ä¿¡æ¯
+          %find(d1(3,:)==-1)=[] %å¯»æ‰¾å…¶ä¸­é1åŸŸçš„ç‚¹è¿›è¡Œåˆ é™¤
           %DATA{NUM2}=d1;
-    elseif ismember(ind2,YU2)==1 & ismember(NUM2,YU2)==0%ÖÜÎ§È«ÊÇ-1Óòµ«×Ô¼º²»ÊÇ-1ÓòÊ±£¬×ª»¯Îª-1Óò
+    elseif ismember(ind2,YU2)==1 & ismember(NUM2,YU2)==0%å‘¨å›´å…¨æ˜¯-1åŸŸä½†è‡ªå·±ä¸æ˜¯-1åŸŸæ—¶ï¼Œè½¬åŒ–ä¸º-1åŸŸ
           YU1(find(YU1==NUM2))=[];
           YUdis(find(YUdis==NUM2))=[];
           YU2=[YU2,NUM2];
-          %d2=DATA{NUM2}; %¸ÃÓòÖĞµãµÄĞÅÏ¢
-          %find(d2(3,:)==1)=[] %Ñ°ÕÒÆäÖĞ·Ç-1ÓòµÄµã½øĞĞÉ¾³ı
+          %d2=DATA{NUM2}; %è¯¥åŸŸä¸­ç‚¹çš„ä¿¡æ¯
+          %find(d2(3,:)==1)=[] %å¯»æ‰¾å…¶ä¸­é-1åŸŸçš„ç‚¹è¿›è¡Œåˆ é™¤
           %DATA{NUM2}=d2;
-    elseif ismember(NUM2,YU0)==1 %¶ÔÓÚÒ»¸ö¿ÕÓò
-        if ismember(ind2,YU1)==1 %ÖÜÎ§È«ÊÇ1ÓòÊ±×ª»¯Îª¿ÕµÄ1Óò
+    elseif ismember(NUM2,YU0)==1 %å¯¹äºä¸€ä¸ªç©ºåŸŸ
+        if ismember(ind2,YU1)==1 %å‘¨å›´å…¨æ˜¯1åŸŸæ—¶è½¬åŒ–ä¸ºç©ºçš„1åŸŸ
            YU0(find(YU0==NUM2))=[];
            YU1=[YU1,NUM2];
-        elseif ismember(ind2,YU2)==1 %ÖÜÎ§È«ÊÇ-1ÓòÊ±×ª»¯Îª¿ÕµÄ1Óò
+        elseif ismember(ind2,YU2)==1 %å‘¨å›´å…¨æ˜¯-1åŸŸæ—¶è½¬åŒ–ä¸ºç©ºçš„1åŸŸ
            YU0(find(YU0==NUM2))=[];
            YU2=[YU2,NUM2];
-        elseif ismember(ind2,YU2)==1 %ÖÜÎ§È«ÊÇÕùÒéÓòÊ±×ª»¯Îª¿ÕµÄÕùÒéÓò
+        elseif ismember(ind2,YU2)==1 %å‘¨å›´å…¨æ˜¯äº‰è®®åŸŸæ—¶è½¬åŒ–ä¸ºç©ºçš„äº‰è®®åŸŸ
            YU0(find(YU0==NUM2))=[];
            YUdis=[YUdis,NUM2];
         end
@@ -176,12 +176,12 @@ for NUM2=1:1:num-1
 end
 
 P=[];prob=[];
-for NUM3=1:1:num-1 %´ò·Ö¹æÔòĞèÒª¿¼ÂÇ
+for NUM3=1:1:num-1 %æ‰“åˆ†è§„åˆ™éœ€è¦è€ƒè™‘
     B2=a3(NUM3,:);
     [B21,B22]=sort(B2,'ascend');
     ind3=B22(1:6);
     P1=[];P2=[];
-    if ismember(NUM3,YUmin)==1 % Ñ¡µ½ÉÙÊıÀàÓò
+    if ismember(NUM3,YUmin)==1 % é€‰åˆ°å°‘æ•°ç±»åŸŸ
        for i3=1:1:6
            if ismember(ind3(i3),YUmin)==1
                P1=[P1,0.25];
@@ -192,7 +192,7 @@ for NUM3=1:1:num-1 %´ò·Ö¹æÔòĞèÒª¿¼ÂÇ
            end
        end
        P(NUM3)=1+sum(P1);
-    elseif ismember(NUM3,YUdis)==1 %Ñ¡µ½ÕùÒéÓò
+    elseif ismember(NUM3,YUdis)==1 %é€‰åˆ°äº‰è®®åŸŸ
        for i4=1:1:6
            if ismember(ind3(i4),YUmin)==1
                P2=[P2,0.25];
@@ -214,28 +214,28 @@ for NUM6=1:1:num-1
         B4=a3(NUM6,:);
         [B41,B42]=sort(B4,'ascend');
         ind5=B42(1:6);
-        if isempty(TIP{NUM6}) || ismember(NUM6,YUmax)==1 || ismember(NUM6,YU0)==1 %¿¼ÂÇÓòÄÚÃ»ÓĞµãµÄÇé¿ö£¬±ÈÈç¿ÕÉÙÊıÀàÓòÓ°ÏìÑ¡È¡¸ÅÂÊµ«²»²ÎÓëÑ¡È¡
+        if isempty(TIP{NUM6}) || ismember(NUM6,YUmax)==1 || ismember(NUM6,YU0)==1 %è€ƒè™‘åŸŸå†…æ²¡æœ‰ç‚¹çš„æƒ…å†µï¼Œæ¯”å¦‚ç©ºå°‘æ•°ç±»åŸŸå½±å“é€‰å–æ¦‚ç‡ä½†ä¸å‚ä¸é€‰å–
            P2(NUM6)=0;
-        %elseif ismember(NUM6,YUmin)==1 & isempty(TIP{ind5(NUM12)})==1 %¹ÂÁ¢µÄ²»²ÎÓëºÏ³É
+        %elseif ismember(NUM6,YUmin)==1 & isempty(TIP{ind5(NUM12)})==1 %å­¤ç«‹çš„ä¸å‚ä¸åˆæˆ
         %length(TIP{NUM6})==1 %1
            %P2(NUM6)=0;   
         else
-           P2(NUM6)=P(NUM6)*(p2.^P(NUM6)); %ÕâÀï×öÁË¸Ä¶¯Òª×¢ÒâÊı¾İ
+           P2(NUM6)=P(NUM6)*(p2.^P(NUM6)); %è¿™é‡Œåšäº†æ”¹åŠ¨è¦æ³¨æ„æ•°æ®
         end
     end
 end
 Psum1=sum(P2);
-prob1=P2/(Psum1);%¹éÒ»»¯µÃ¸ÅÂÊ 
+prob1=P2/(Psum1);%å½’ä¸€åŒ–å¾—æ¦‚ç‡ 
 
-%Èç¹ûÉÙÊıÀàÓòÖÜÎ§
+%å¦‚æœå°‘æ•°ç±»åŸŸå‘¨å›´
 
-for NUM5=1:1:Num+1 %Òª±ÜÃâ¶à´ÎÑ¡µ½Í¬Ò»¸öÓò£¬Ã¿´Îµü´úÓ¦¸ÃÉ¾³ı±»Ñ¡ÓòµÄnum
+for NUM5=1:1:Num+1 %è¦é¿å…å¤šæ¬¡é€‰åˆ°åŒä¸€ä¸ªåŸŸï¼Œæ¯æ¬¡è¿­ä»£åº”è¯¥åˆ é™¤è¢«é€‰åŸŸçš„num
     d21=[];d22=[];
     PP=[1:num-1];
-    S1=randsrc(1,1,[PP;prob1]); %ÒÀ¸ÅÂÊÑ¡È¡µÚÒ»¸öÓò
-    d21=TIP0{S1}; %µÚÒ»¸öÓòÖĞÉÙÊıÀàµãµÄ±êÇ©
-    K1(NUM5)=d21(int32(1+(length(d21)-1)*rand)); %Ëæ»úÑ¡µÚÒ»¸öµã
-    %ÔÚµÚÒ»¸öÓò¼°ÆäÖÜÎ§6¸öÓòÖĞÒÀ¸ÅÂÊÑ¡È¡µÚ¶ş¸öÓò
+    S1=randsrc(1,1,[PP;prob1]); %ä¾æ¦‚ç‡é€‰å–ç¬¬ä¸€ä¸ªåŸŸ
+    d21=TIP0{S1}; %ç¬¬ä¸€ä¸ªåŸŸä¸­å°‘æ•°ç±»ç‚¹çš„æ ‡ç­¾
+    K1(NUM5)=d21(int32(1+(length(d21)-1)*rand)); %éšæœºé€‰ç¬¬ä¸€ä¸ªç‚¹
+    %åœ¨ç¬¬ä¸€ä¸ªåŸŸåŠå…¶å‘¨å›´6ä¸ªåŸŸä¸­ä¾æ¦‚ç‡é€‰å–ç¬¬äºŒä¸ªåŸŸ
     B3=a3(S1,:);
     [B31,B32]=sort(B3,'ascend');
     ind4=B32(1:6);
@@ -253,7 +253,7 @@ for NUM5=1:1:Num+1 %Òª±ÜÃâ¶à´ÎÑ¡µ½Í¬Ò»¸öÓò£¬Ã¿´Îµü´úÓ¦¸ÃÉ¾³ı±»Ñ¡ÓòµÄnum
             end
         end
     end
-    %smoteºÏ³ÉĞÂÑù±¾
+    %smoteåˆæˆæ–°æ ·æœ¬
     TIPT=[];
     for NUM11=1:1:length(K2)     
         if K2(NUM11)==0 
@@ -281,15 +281,15 @@ end
 x3(1)=[];
 y3(1)=[];
 Enew(1,:)=[];
-%plot(x3,y3,'^') %ºÏ³ÉĞÂÑù±¾µã
+%plot(x3,y3,'^') %åˆæˆæ–°æ ·æœ¬ç‚¹
 hold on
 
-%Èç¹ûÉú³ÉµãÖÜÎ§6¸öÓò¶¼Ã»ÓĞÉÙÊıÀàµã£¬ÄÇÃ´É¾³ıÕâ¸öÉú³ÉµÄĞÂÑù±¾µã
+%å¦‚æœç”Ÿæˆç‚¹å‘¨å›´6ä¸ªåŸŸéƒ½æ²¡æœ‰å°‘æ•°ç±»ç‚¹ï¼Œé‚£ä¹ˆåˆ é™¤è¿™ä¸ªç”Ÿæˆçš„æ–°æ ·æœ¬ç‚¹
 TIPN=[];
 for NUM9=1:1:Num 
     for NUM10=1:1:num-1
         in2=inpolygon(x3(NUM9),y3(NUM9),ban3{NUM10},ban4{NUM10});
-        if in2==1 %ÅĞ¶ÏĞÂÑù±¾µãÔÚÄÄ¸öÓò
+        if in2==1 %åˆ¤æ–­æ–°æ ·æœ¬ç‚¹åœ¨å“ªä¸ªåŸŸ
            B4=a3(NUM10,:);
            [B41,B42]=sort(B4,'ascend');
            ind5=B42(1:6);
@@ -308,17 +308,17 @@ y3(TIPN)=[];
 Enew(TIPN,:)=[];
 x3=x3';
 y3=y3';
-%ºÏ³ÉÑù±¾Í¼¡¤ 
-plot(x3,y3,'g>') %ºÏ³ÉĞÂÑù±¾µã
+%åˆæˆæ ·æœ¬å›¾Â· 
+plot(x3,y3,'g>') %åˆæˆæ–°æ ·æœ¬ç‚¹
 hold off
 Enew8=linspace(ms,ms,size(Enew,1))';
 Enewnew=[Enew,Enew8];
-datanew=[ndata',Enewnew']';%Æ½ºâÊı¾İ¼¯
+datanew=[ndata',Enewnew']';%å¹³è¡¡æ•°æ®é›†
 
 Data=datanew(:,1:N2-1);
 Tip=datanew(:,N2);
 
 
-%pathname='D:\python\Êı¾İ\';
+%pathname='D:\python\æ•°æ®\';
 %filename='data.mat';
 %save([pathname,filename],'datanew');
